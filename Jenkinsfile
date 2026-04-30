@@ -28,17 +28,18 @@ pipeline {
                     passwordVariable: 'PASS'
                 )]) {
                     sh '''
-                    echo $PASS | docker login -u $USER --password-stdin
-                    docker push $DOCKER_IMAGE:$TAG
-                    docker logout
-                    '''
+echo $PASS | docker login -u $USER --password-stdin
+docker push $DOCKER_IMAGE:$TAG
+docker logout
+'''
                 }
             }
         }
 
         stage('Deploy to Kubernetes') {
             steps {
-                echo "Skipping Kubernetes deployment (no cluster on EC2)"
+                sh 'kubectl apply -f deployment.yaml'
+                sh 'kubectl apply -f service.yaml'
             }
         }
 
