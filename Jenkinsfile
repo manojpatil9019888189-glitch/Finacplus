@@ -25,12 +25,13 @@ pipeline {
                 withCredentials([usernamePassword(
                     credentialsId: 'docker-creds',
                     usernameVariable: 'USER',
-                    passwordVariable: 'PASS')]) {
-
+                    passwordVariable: 'PASS'
+                )]) {
                     sh '''
-                    echo $PASS | docker login -u $USER --password-stdin
-                    docker push $DOCKER_IMAGE:$TAG
-                    '''
+echo $PASS | docker login -u $USER --password-stdin
+docker push $DOCKER_IMAGE:$TAG
+docker logout
+'''
                 }
             }
         }
@@ -41,5 +42,6 @@ pipeline {
                 sh 'kubectl apply -f service.yaml'
             }
         }
+
     }
 }
