@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "manojpatil1831/flask-app"
         TAG = "latest"
+        KUBECONFIG = "/root/.kube/config"
     }
 
     stages {
@@ -28,18 +29,21 @@ pipeline {
                     passwordVariable: 'PASS'
                 )]) {
                     sh '''
-echo $PASS | docker login -u $USER --password-stdin
-docker push $DOCKER_IMAGE:$TAG
-docker logout
-'''
+                    echo $PASS | docker login -u $USER --password-stdin
+                    docker push $DOCKER_IMAGE:$TAG
+                    docker logout
+                    '''
                 }
             }
         }
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'kubectl apply -f k8s/deployment.yaml'
-                sh 'kubectl apply -f k8s/service.yaml'
+                sh '''
+                export KUBECONFIG=/root/.kube/config
+                kubectl apply -f k8s/deployment.yaml --validate=false
+                kubectl apply -f k8s/service.yaml --validate=false
+                '''
             }
         }
 
