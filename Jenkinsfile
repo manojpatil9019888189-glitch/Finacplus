@@ -4,7 +4,6 @@ pipeline {
     environment {
         DOCKER_IMAGE = "manojpatil1831/flask-app"
         TAG = "latest"
-        KUBECONFIG = "/var/jenkins_home/.kube/config"
     }
 
     stages {
@@ -39,11 +38,7 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh '''
-                export KUBECONFIG=/var/jenkins_home/.kube/config
-                kubectl apply -f k8s/deployment.yaml --validate=false
-                kubectl apply -f k8s/service.yaml --validate=false
-                '''
+                echo "Skipping Kubernetes deployment (no cluster on EC2)"
             }
         }
 
