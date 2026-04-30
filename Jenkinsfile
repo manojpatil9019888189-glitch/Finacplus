@@ -40,7 +40,7 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 sh '''
-                export KUBECONFIG=/root/.kube/config
+                export KUBECONFIG = "/var/jenkins_home/.kube/config"
                 kubectl apply -f k8s/deployment.yaml --validate=false
                 kubectl apply -f k8s/service.yaml --validate=false
                 '''
