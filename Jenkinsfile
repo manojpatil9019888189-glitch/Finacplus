@@ -28,15 +28,19 @@ pipeline {
                     passwordVariable: 'PASS'
                 )]) {
                     sh '''
-echo $PASS | docker login -u $USER --password-stdin
-docker push $DOCKER_IMAGE:$TAG
-docker logout
-'''
+                    echo $PASS | docker login -u $USER --password-stdin
+                    docker push $DOCKER_IMAGE:$TAG
+                    docker logout
+                    '''
                 }
             }
         }
 
+        // 👇 DISABLED DEPLOY STAGE
         stage('Deploy to Kubernetes') {
+            when {
+                expression { return false }
+            }
             steps {
                 sh 'kubectl apply -f deployment.yaml'
                 sh 'kubectl apply -f service.yaml'
