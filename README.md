@@ -302,6 +302,12 @@ The application is deployed to a Kubernetes cluster using manifest files located
 
 ## Screenshots
 
+### Git Hub Webhook(Trigger)
+
+<img width="1591" height="737" alt="image" src="https://github.com/user-attachments/assets/a6835140-9a5e-401b-8ff6-7ecddd9f152a" />
+
+Webhook is configured to automatically trigger the Jenkins pipeline on every code push, enabling continuous integration without manual intervention.
+
 ### Jenkins Pipeline Execution
 
 <img width="1469" height="701" alt="image" src="https://github.com/user-attachments/assets/840e5cea-827f-4b9e-b402-d5896ec42af1" />
