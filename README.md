@@ -104,6 +104,9 @@ Ensure the following tools and configurations are in place before setting up the
 
 The repository is organized as follows:
 
+## Project Structure
+
+```bash
 .
 ├── app/                    # application source code
 ├── k8s/
@@ -112,6 +115,8 @@ The repository is organized as follows:
 ├── Dockerfile              # container build definition
 ├── Jenkinsfile             # CI/CD pipeline definition
 └── README.md               # project documentation
+```
+
 
 ### Description
 
